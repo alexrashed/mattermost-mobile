@@ -170,6 +170,18 @@ platform :ios do
     sh 'cp -R ../assets/release/icons/ios/* ../ios/Mattermost/Images.xcassets/AppIcon.appiconset/'
   end
 
+  lane :pull_request do
+    match(type: 'adhoc', app_identifier: 'com.mattermost.rnbeta')
+    puts "hello pull_request lane!"
+
+    # build_ios({
+    #     release: true,
+    #     increment_build: false,
+    #     ensure_git_status_clean: true,
+    #     method: 'ad-hoc'
+    # })
+  end
+
   error do |lane, exception|
     if ENV['MATTERMOST_WEBHOOK_URL']
       send_message_for_ios('', 'Unsuccessful Build', exception.message, [:lane], false)
